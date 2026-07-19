@@ -1,0 +1,611 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MindPulse â€” Privacy-first behavioral sensing</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<style>
+    :root {
+        --tertiary: #694244;
+        --primary-container: #4c6b58;
+        --error-container: #ffdad6;
+        --secondary-fixed-dim: #ffb68c;
+        --inverse-on-surface: #f3f1e9;
+        --on-secondary: #ffffff;
+        --primary-fixed-dim: #adcfb8;
+        --surface-container-low: #f6f3eb;
+        --surface-dim: #dcdad2;
+        --surface-container-lowest: #ffffff;
+        --on-tertiary: #ffffff;
+        --tertiary-fixed-dim: #efb9bb;
+        --outline-variant: #c2c8c1;
+        --on-primary-fixed: #022112;
+        --on-secondary-fixed: #321200;
+        --secondary: #8f4d20;
+        --amber-warm: #E0996B;
+        --surface-variant: #e5e2db;
+        --secondary-container: #fea772;
+        --on-tertiary-fixed: #301215;
+        --on-error: #ffffff;
+        --on-tertiary-container: #ffd9da;
+        --on-primary-container: #c7ead2;
+        --accent-gold: #F2C94C;
+        --on-error-container: #93000a;
+        --background: #fcf9f1;
+        --surface-container: #f0eee6;
+        --tertiary-fixed: #ffdada;
+        --outline: #727973;
+        --error: #ba1a1a;
+        --on-surface-variant: #424843;
+        --primary: #345341;
+        --on-background: #1c1c17;
+        --on-secondary-fixed-variant: #723609;
+        --background-light: #FAF7F2;
+        --inverse-primary: #adcfb8;
+        --on-secondary-container: #773a0e;
+        --accent-blue: #8DA9B8;
+        --surface-container-highest: #e5e2db;
+        --background-dark: #1C1E1B;
+        --surface-tint: #466552;
+        --on-primary-fixed-variant: #2f4d3c;
+        --secondary-fixed: #ffdbc9;
+        --on-surface: #1c1c17;
+        --inverse-surface: #31312c;
+        --primary-fixed: #c8ebd3;
+        --tertiary-container: #84595b;
+        --surface-container-high: #ebe8e0;
+        --sage-light: #9CB89F;
+        --on-primary: #ffffff;
+        --on-tertiary-fixed-variant: #633c3e;
+        --surface-bright: #fcf9f1;
+        --surface: #fcf9f1;
+
+        --margin-mobile: 16px;
+        --margin-desktop: 64px;
+        --sp-base: 8px;
+        --sp-xs: 4px;
+        --sp-sm: 12px;
+        --sp-md: 24px;
+        --sp-lg: 48px;
+        --sp-xl: 80px;
+        --sp-2xl: 120px;
+        --sp-gutter: 24px;
+    }
+
+    body {
+        background: var(--background-light);
+        color: var(--on-background);
+        font-family: 'Inter', sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+        font-weight: 400;
+        position: relative;
+        overflow-x: hidden;
+    }
+    ::selection { background: rgba(224,153,107,0.3); }
+
+    .container-tight { max-width: 1200px; margin-left: auto; margin-right: auto; padding-left: var(--margin-mobile); padding-right: var(--margin-mobile); }
+    @media (min-width: 768px) { .container-tight { padding-left: var(--margin-desktop); padding-right: var(--margin-desktop); } }
+
+    .f-headline-lg { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 36px; line-height: 1.1; letter-spacing: 0; color: var(--primary); }
+    @media (min-width: 768px) { .f-headline-lg { font-size: 56px; line-height: 1.05; letter-spacing: 0; } }
+    .f-headline-md { font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 28px; line-height: 1.2; letter-spacing: 0; color: var(--primary); }
+    .f-body-lg { font-family: 'Inter', sans-serif; font-size: 18px; line-height: 1.6; font-weight: 400; color: var(--on-surface-variant); }
+    .f-body-md { font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.5; font-weight: 400; color: var(--on-surface-variant); }
+    .f-label-mono { font-family: 'IBM Plex Mono', monospace; font-size: 14px; line-height: 1.2; letter-spacing: 0.08em; font-weight: 500; }
+    .f-stat-lg { font-family: 'IBM Plex Mono', monospace; font-size: 20px; line-height: 1.0; font-weight: 600; }
+
+    .text-primary-brand { color: var(--primary) !important; }
+    .text-secondary-brand { color: var(--secondary) !important; }
+    .text-onsurface { color: var(--on-surface) !important; }
+    .text-onsurface-variant { color: var(--on-surface-variant) !important; }
+    .text-outline-c { color: var(--outline) !important; }
+    .text-amber { color: var(--amber-warm) !important; }
+    .text-accent-blue { color: var(--accent-blue) !important; }
+    .text-accent-gold { color: var(--accent-gold) !important; }
+    .bg-primary-brand { background: var(--primary) !important; color: var(--on-primary) !important; }
+
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+
+    .glass-card {
+        background: rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(194,200,193,0.1);
+        box-shadow: 0 4px 24px -4px rgba(0,0,0,0.03), 0 2px 8px -2px rgba(0,0,0,0.02);
+        transition: all 0.4s cubic-bezier(0.2,0.8,0.2,1);
+        border-radius: 24px;
+    }
+    .glass-card:hover {
+        transform: translateY(-4px);
+        background: rgba(255,255,255,0.6);
+        border-color: rgba(173,207,184,0.3);
+        box-shadow: 0 12px 32px -8px rgba(0,0,0,0.08), 0 4px 12px -4px rgba(0,0,0,0.04);
+    }
+
+    @keyframes subtlePulse {
+        0% { box-shadow: 0 0 0 0 rgba(76,107,88,0.2); }
+        70% { box-shadow: 0 0 0 10px rgba(76,107,88,0); }
+        100% { box-shadow: 0 0 0 0 rgba(76,107,88,0); }
+    }
+    .animate-subtle-pulse { animation: subtlePulse 3s infinite; }
+
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in { animation: fadeInUp 0.8s cubic-bezier(0.2,0.8,0.2,1) forwards; }
+    .delay-100 { animation-delay: 100ms; }
+    .delay-200 { animation-delay: 200ms; }
+    .delay-300 { animation-delay: 300ms; }
+
+    .bg-glow-top {
+        position: absolute; top: -20%; left: -10%; width: 70%; height: 70%;
+        background: radial-gradient(circle, rgba(173,207,184,0.15) 0%, rgba(250,247,242,0) 70%);
+        z-index: 0; pointer-events: none;
+    }
+    .bg-glow-bottom {
+        position: absolute; bottom: -20%; right: -10%; width: 80%; height: 80%;
+        background: radial-gradient(circle, rgba(224,153,107,0.08) 0%, rgba(250,247,242,0) 70%);
+        z-index: 0; pointer-events: none;
+    }
+
+    .btn-pill { border-radius: 9999px; font-family: 'Inter', sans-serif; font-weight: 500; border: none; padding: 0.65rem 1.75rem; transition: all .3s ease; }
+    .btn-pill-primary { background: var(--primary); color: var(--on-primary); }
+    .btn-pill-primary:hover { background: rgba(52,83,65,0.9); color: var(--on-primary); transform: translateY(-2px); box-shadow: 0 8px 20px -6px rgba(52,83,65,0.4); }
+    .btn-pill-ghost { background: rgba(252,249,241,0.5); border: 1px solid rgba(194,200,193,0.2); color: var(--primary); backdrop-filter: blur(4px); }
+    .btn-pill-ghost:hover { background: var(--surface); color: var(--primary); transform: translateY(-2px); }
+    .btn-pill-gold { background: var(--accent-gold); color: var(--on-surface); font-weight: 600; }
+    .btn-pill-gold:hover { background: #ffffff; color: var(--on-surface); transform: translateY(-2px); box-shadow: 0 10px 40px -10px rgba(242,201,76,0.6); }
+
+    .navbar-brand-custom { background: rgba(250,247,242,0.7); backdrop-filter: blur(24px); position: fixed; top:0; left:0; right:0; z-index: 50; border-bottom: 1px solid rgba(194,200,193,0.1); }
+    .nav-link-custom { color: var(--on-surface-variant); font-family: 'Inter'; font-size: 15px; font-weight: 500; border-radius: 9999px; padding: 0.5rem 1rem; transition: all .2s; text-decoration: none; }
+    .nav-link-custom:hover { color: var(--primary); background: rgba(246,243,235,0.5); }
+
+    .phone-mock { width: 300px; height: 620px; border: 10px solid var(--surface-container-low); border-radius: 48px; background: rgba(255,255,255,0.8); backdrop-filter: blur(24px); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); border-color: rgba(194,200,193,0.1); overflow: hidden; position: relative; }
+    .phone-notch { position:absolute; top:0; width:100%; display:flex; justify-content:center; z-index:2; }
+    .phone-notch span { width:120px; height:24px; background: var(--surface-container-low); border-radius: 0 0 16px 16px; display:block; }
+    .stream-row { height: 48px; border: 1px solid rgba(194,200,193,0.1); border-radius: 16px; display:flex; align-items:center; padding: 0 1rem; background: rgba(246,243,235,0.5); box-shadow: inset 0 1px 3px rgba(0,0,0,.04); }
+
+    .chip-pill { padding: .5rem 1rem; border-radius: 9999px; display:inline-flex; align-items:center; gap:.5rem; }
+
+    section[id] { scroll-margin-top: 96px; }
+    html { scroll-behavior: smooth; }
+</style>
+</head>
+<body>
+<div class="bg-glow-top"></div>
+<div class="bg-glow-bottom"></div>
+
+<nav class="navbar-brand-custom">
+  <div class="container-tight d-flex justify-content-between align-items-center py-3">
+    <div class="f-headline-md" style="font-size:24px; letter-spacing:0;">MindPulse</div>
+    <div class="d-none d-md-flex gap-2 align-items-center">
+      <a class="nav-link-custom" href="#what-it-senses">What it senses</a>
+      <a class="nav-link-custom" href="#how-it-decides">How it decides</a>
+    </div>
+    <button class="btn btn-pill btn-pill-primary animate-subtle-pulse">Get in touch</button>
+  </div>
+</nav>
+
+<main style="padding-top:120px; position:relative; z-index:10;">
+
+  <!-- HERO -->
+  <section class="container-tight py-5 py-md-5" style="padding-top:5rem; padding-bottom:5rem;">
+    <div class="row align-items-center gy-5">
+      <div class="col-12 col-md-6 animate-fade-in">
+        <span class="f-label-mono text-secondary-brand text-uppercase d-inline-block fw-bold pb-2 mb-3" style="font-size:12px; border-bottom:1px solid rgba(143,77,32,0.2);">ON-DEVICE BEHAVIORAL SENSING â€” NO CLOUD, EVER</span>
+        <h1 class="f-headline-lg mb-4">It learns your rhythm.<br>It only speaks when it changes.</h1>
+        <p class="f-body-lg mb-4" style="max-width:36rem;">MindPulse watches three ordinary signals â€” how you move, how you use your phone, when you charge it â€” and compares them only against your own history. Everything runs on the device in your hand.</p>
+        <div class="d-flex flex-wrap gap-3 mb-4">
+          <button class="btn btn-pill btn-pill-primary animate-subtle-pulse">See what it senses</button>
+          <button class="btn btn-pill btn-pill-ghost">Get in touch</button>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+          <div class="glass-card chip-pill f-label-mono text-onsurface" style="font-size:11px;"><span class="material-symbols-outlined text-accent-gold" style="font-size:16px;">sensors</span>[ SIGNAL_COUNT: 03 ]</div>
+          <div class="glass-card chip-pill f-label-mono text-onsurface" style="font-size:11px;"><span class="material-symbols-outlined text-accent-blue" style="font-size:16px;">cloud_off</span>[ CLOUD_SYNC: 0 CALLS ]</div>
+          <div class="glass-card chip-pill f-label-mono text-onsurface" style="font-size:11px;"><span class="material-symbols-outlined text-amber" style="font-size:16px;">history</span>[ BASELINE: 14D ]</div>
+          <div class="glass-card chip-pill f-label-mono text-onsurface" style="font-size:11px;"><span class="material-symbols-outlined text-primary-brand" style="font-size:16px;">memory</span>[ MODEL: 285.6MB ]</div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 d-flex justify-content-center animate-fade-in delay-200 position-relative" style="height:600px;">
+        <div class="phone-mock d-flex flex-column">
+          <div class="phone-notch"><span></span></div>
+          <div class="flex-grow-1 p-4 pt-5">
+            <div class="f-label-mono text-primary-brand d-inline-flex align-items-center gap-2 mb-4 px-3 py-2 rounded-3" style="font-size:12px; background:rgba(52,83,65,0.05); border:1px solid rgba(52,83,65,0.1);">
+              <span class="rounded-circle" style="width:10px;height:10px;background:var(--primary);display:inline-block;box-shadow:0 0 8px rgba(52,83,65,.5);"></span> SYSTEM_STATUS: BASELINE_ACTIVE
+            </div>
+            <div class="d-flex flex-column gap-3">
+              <div>
+                <div class="f-label-mono text-outline-c mb-1" style="font-size:11px; letter-spacing:.15em;">SENS_STREAM_01</div>
+                <div class="stream-row"></div>
+              </div>
+              <div>
+                <div class="f-label-mono text-outline-c mb-1" style="font-size:11px; letter-spacing:.15em;">SENS_STREAM_02</div>
+                <div class="stream-row"><div style="width:100%;height:3px;background:rgba(224,153,107,0.8);border-radius:99px;"></div></div>
+              </div>
+              <div>
+                <div class="f-label-mono text-outline-c mb-1" style="font-size:11px; letter-spacing:.15em;">SENS_STREAM_03</div>
+                <div class="stream-row"><div style="width:100%;height:3px;background:rgba(141,169,184,0.8);border-radius:99px;"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:350px; height:350px; background:rgba(52,83,65,0.05); border-radius:50%; filter:blur(64px); z-index:-1;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. WHY THIS -->
+  <section class="container-tight py-5 animate-fade-in delay-100" style="padding-top:5rem; padding-bottom:5rem;">
+    <div class="mb-5">
+      <span class="f-label-mono text-secondary-brand text-uppercase d-block mb-3 fw-bold" style="font-size:12px;">WHY MINDPULSE IS DIFFERENT</span>
+      <h2 class="f-headline-md" style="max-width:48rem;">Most wellness apps ask you to log everything. MindPulse doesn't need you to.</h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-12 col-md-6">
+        <div class="glass-card p-4 p-md-5 h-100">
+          <h3 class="f-label-mono fw-bold text-onsurface mb-3" style="font-size:14px;">Passive, not another form to fill out</h3>
+          <p class="f-body-md mb-0">No daily surveys, no manual logging required for it to work â€” it senses automatically in the background.</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="glass-card p-4 p-md-5 h-100">
+          <h3 class="f-label-mono fw-bold text-onsurface mb-3" style="font-size:14px;">Compared to you, not a population</h3>
+          <p class="f-body-md mb-0">Your own 14-day baseline, not a generic normal range borrowed from someone else's data.</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="glass-card p-4 p-md-5 h-100">
+          <h3 class="f-label-mono fw-bold text-onsurface mb-3" style="font-size:14px;">On-device, not a data pipeline</h3>
+          <p class="f-body-md mb-0">No cloud inference, no server round trip â€” the model that reads your patterns runs on the phone in your hand, not on a company's servers.</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="glass-card p-4 p-md-5 h-100">
+          <h3 class="f-label-mono fw-bold text-onsurface mb-3" style="font-size:14px;">Honest about its limits, not oversold</h3>
+          <p class="f-body-md mb-0">It states plainly what the score can and can't tell you, instead of promising an AI that 'understands your mental health.'</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT IT NOTICES -->
+  <section class="py-5 position-relative" id="what-it-senses" style="padding-top:5rem; padding-bottom:5rem;">
+    <div class="position-absolute top-0 start-0 w-100 h-100" style="background:rgba(255,255,255,0.4); backdrop-filter:blur(48px); z-index:-1; border-top:1px solid rgba(194,200,193,0.05); border-bottom:1px solid rgba(194,200,193,0.05);"></div>
+    <div class="container-tight animate-fade-in delay-200">
+      <div class="text-center mb-5">
+        <h2 class="f-headline-md mb-3">What It Notices</h2>
+        <p class="f-body-lg mx-auto" style="max-width:36rem;">Coarse, metadata-level signals. Nothing invasive.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-12 col-md-4">
+          <div class="glass-card p-4 p-md-5 text-center h-100 d-flex flex-column align-items-center">
+            <div class="mb-4 p-3 rounded-4" style="width:80px;height:80px;background:var(--surface-container-low); box-shadow:0 1px 3px rgba(0,0,0,.05); border:1px solid rgba(194,200,193,0.1);">
+              <img alt="Icon: Movement" style="width:100%;height:100%;object-fit:contain;" src="https://lh3.googleusercontent.com/aida/AP1WRLtc0KwgHv56G-NGwJ6XKPDpYS9WSV8k178kCbwZnCVbWpZWsV6cn5s_RRT0prAgfvsZhIk9VV9pb9FVekwjYlB0eCRxiZ5eb19UEdEkzcYkkg0Eij2-fwChdu94X6fK5n8IkIRReDTE8ujkmxdWVHbu4Ioc2_dHS8XTzFiTKy4MbaRRN9uaHdwn23sC8BAaPjWB1zwrtZHJxNhuPzQd2tCR7bRELbfUDM50zWNeynYnR7VLIGMqv6lcf0c"/>
+            </div>
+            <h3 class="f-label-mono text-primary-brand fw-bold text-uppercase mb-3" style="font-size:14px; letter-spacing:.15em;">MOVEMENT</h3>
+            <p class="f-body-md mb-0">Stationary, walking, running â€” coarse activity state through Android's Activity Recognition API. Never GPS, never a route, never a place.</p>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="glass-card p-4 p-md-5 text-center h-100 d-flex flex-column align-items-center">
+            <div class="mb-4 p-3 rounded-4" style="width:80px;height:80px;background:var(--surface-container-low); box-shadow:0 1px 3px rgba(0,0,0,.05); border:1px solid rgba(194,200,193,0.1);">
+              <img alt="Icon: Phone Rhythm" style="width:100%;height:100%;object-fit:contain;" src="https://lh3.googleusercontent.com/aida/AP1WRLv_ay4LC-lxBGwFVb2dXnmFg_IGIXqVCXZp94jMBdyo-DRXNHtnJ5zR8s33Z8COgT5TBuevl0qC2amuFv_-qEg9soCvG_TBO4iynUwEeo3viZppU_sZ6vxaMPIqRUVUlYkTSPlOg647SbHZdEr74VXbyxNstjR7rrKD_i9x3XD6Go3FENXb_I9Kk6vyv1FHzVYYB8Le1RVrv8NcK2pbwu4qNPCCO_2wNW9KHQdWzAjkI8XmoVGppr9PqBQ"/>
+            </div>
+            <h3 class="f-label-mono text-primary-brand fw-bold text-uppercase mb-3" style="font-size:14px; letter-spacing:.15em;">PHONE RHYTHM</h3>
+            <p class="f-body-md mb-0">When the screen turns on and off, and for how long â€” not which apps, not what's on screen.</p>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="glass-card p-4 p-md-5 text-center h-100 d-flex flex-column align-items-center">
+            <div class="mb-4 p-3 rounded-4" style="width:80px;height:80px;background:var(--surface-container-low); box-shadow:0 1px 3px rgba(0,0,0,.05); border:1px solid rgba(194,200,193,0.1);">
+              <img alt="Icon: Charging" style="width:100%;height:100%;object-fit:contain;" src="https://lh3.googleusercontent.com/aida/AP1WRLuNkkXFas5VLKuA8aj4c8HHXgTpqXz_SQl1UlCTLIBT_wQpnPd_HiylKRCVQ8K07iJTKkT1aHTs2F0CCCmS5tcBts_EOf0zxWQ7rlK_OjTvomOM_C47oOM6ypIl3g_ePHR2CRHAdwf29I4ni05K3mpTfAXtJizw77m7INVLypcOAncnMkZFB8bwHCZKeLvAM88lcEw-EBYzuPzzr6Dbt6M5YdG_x_Rg7xQLcKQgv7s2tBdVMED5hi41Bfk"/>
+            </div>
+            <h3 class="f-label-mono text-primary-brand fw-bold text-uppercase mb-3" style="font-size:14px; letter-spacing:.15em;">CHARGING</h3>
+            <p class="f-body-md mb-0">When and how long the phone charges, including overnight â€” a proxy for sleep timing, nothing about location.</p>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center mt-5">
+        <p class="f-label-mono text-outline-c glass-card px-4 py-3 rounded-pill text-center mb-0" style="font-size:11px; max-width:48rem;">No microphone. No camera. No contacts, messages, or call logs. No precise location, ever. Raw events are deleted after 48 hours â€” only the daily aggregate stays.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT DECIDES -->
+  <section class="py-5 position-relative" id="how-it-decides" style="padding-top:5rem; padding-bottom:5rem;">
+    <div class="container-tight animate-fade-in delay-100">
+      <div class="mb-5">
+        <h2 class="f-headline-md mb-3">How It Decides</h2>
+        <p class="f-body-lg" style="max-width:36rem;">The four strict gates before it ever speaks.</p>
+      </div>
+      <div class="row g-3">
+        <div class="col-12 col-md-6">
+          <div class="glass-card p-4">
+            <div class="f-label-mono text-accent-blue fw-bold d-inline-block px-3 py-1 rounded-2 mb-3" style="font-size:11px; background:rgba(141,169,184,0.1); border:1px solid rgba(141,169,184,0.2); letter-spacing:.15em;">GATE 1</div>
+            <h3 class="f-headline-md text-onsurface mb-2" style="font-size:24px;">14 Days</h3>
+            <p class="f-body-md mb-0">Learns your own baseline first â€” your personal normal, not a benchmark borrowed from anyone else.</p>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="glass-card p-4">
+            <div class="f-label-mono text-amber fw-bold d-inline-block px-3 py-1 rounded-2 mb-3" style="font-size:11px; background:rgba(224,153,107,0.1); border:1px solid rgba(224,153,107,0.2); letter-spacing:.15em;">GATE 2</div>
+            <h3 class="f-headline-md text-onsurface mb-2" style="font-size:24px;">3+ Days</h3>
+            <p class="f-body-md mb-0">A single unusual day is noise and is ignored. Only a deviation that persists for three or more consecutive days is considered.</p>
+          </div>
+        </div>
+        <div class="col-12 col-md-3">
+          <div class="glass-card p-4 h-100 d-flex flex-column">
+            <div class="f-label-mono text-primary-brand fw-bold d-inline-block px-3 py-1 rounded-2 mb-3" style="font-size:11px; background:rgba(52,83,65,0.05); border:1px solid rgba(52,83,65,0.1); letter-spacing:.15em; width:fit-content;">GATE 3</div>
+            <h3 class="f-headline-md text-onsurface mb-2" style="font-size:24px;">2+ Signal Groups</h3>
+            <p class="f-body-md mb-0 mt-2">The change has to show up across at least two of the three signal groups at once.</p>
+          </div>
+        </div>
+        <div class="col-12 col-md-9">
+          <div class="glass-card p-4 h-100 d-flex align-items-center justify-content-between flex-wrap gap-3">
+            <div style="max-width:36rem;">
+              <div class="f-label-mono text-secondary-brand fw-bold d-inline-block px-3 py-1 rounded-2 mb-3" style="font-size:11px; background:rgba(143,77,32,0.1); border:1px solid rgba(143,77,32,0.2); letter-spacing:.15em;">GATE 4</div>
+              <h3 class="f-headline-md text-onsurface mb-2" style="font-size:24px;">7-Day Cooldown</h3>
+              <p class="f-body-md mb-0">After surfacing a change once, it goes quiet again before it will speak a second time.</p>
+            </div>
+            <span class="material-symbols-outlined d-none d-md-block" style="font-size:100px; font-weight:200; color:rgba(114,121,115,0.1);">timer</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT IT SAYS -->
+  <section class="py-5 position-relative" style="padding-top:5rem; padding-bottom:5rem;">
+    <div class="position-absolute top-0 start-0 w-100 h-100" style="background:rgba(255,255,255,0.3); backdrop-filter:blur(48px); z-index:-1; border-top:1px solid rgba(194,200,193,0.05); border-bottom:1px solid rgba(194,200,193,0.05);"></div>
+    <div class="container-tight animate-fade-in delay-200">
+      <div class="mb-5">
+        <h2 class="f-headline-md mb-4">What It Says</h2>
+        <p class="f-body-lg mb-0" style="max-width:56rem;">When a change clears every gate above, a small language model â€” Gemma 3 270M, fine-tuned and running entirely on the phone â€” drafts a short, neutral response: one acknowledgement, one question, one small step, chosen only from a fixed set of ten pre-approved actions. Every output is checked by a separate, deterministic filter before it's ever shown. If the model fails, a fixed fallback action displays instead â€” the app never depends on it to keep working.</p>
+      </div>
+      <div class="row g-3 row-cols-2 row-cols-md-4">
+        <div class="col">
+          <div class="glass-card p-4 text-center h-100 d-flex flex-column justify-content-center" style="min-height:160px;">
+            <div class="f-label-mono text-outline-c text-uppercase mb-2" style="font-size:12px;">Valid output</div>
+            <div class="f-stat-lg text-primary-brand" style="font-size:40px;">100%</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="glass-card p-4 text-center h-100 d-flex flex-column justify-content-center" style="min-height:160px;">
+            <div class="f-label-mono text-outline-c text-uppercase mb-2" style="font-size:12px;">Approved action</div>
+            <div class="f-stat-lg text-primary-brand" style="font-size:40px;">100%</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="glass-card p-4 text-center h-100 d-flex flex-column justify-content-center" style="min-height:160px;">
+            <div class="f-label-mono text-outline-c text-uppercase mb-2" style="font-size:12px;">Correct duration</div>
+            <div class="f-stat-lg text-primary-brand" style="font-size:40px;">100%</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="glass-card p-4 text-center h-100 d-flex flex-column justify-content-center" style="min-height:160px;">
+            <div class="f-label-mono text-outline-c text-uppercase mb-2" style="font-size:12px;">Diagnosis or meds</div>
+            <div class="f-stat-lg text-secondary-brand" style="font-size:40px;">0%</div>
+          </div>
+        </div>
+      </div>
+      <p class="text-center f-label-mono text-outline-c mt-4 mb-0 text-uppercase" style="font-size:10px; letter-spacing:.15em; opacity:.6;">measured on 565 held-out real test examples</p>
+    </div>
+  </section>
+
+  <!-- DASHBOARD & GOALS -->
+  <section class="py-5" id="dashboard" style="padding-top:5rem; padding-bottom:5rem;">
+    <div class="container-tight animate-fade-in delay-100">
+      <div class="row g-5">
+        <div class="col-12 col-md-6">
+          <span class="f-label-mono text-secondary-brand text-uppercase d-block mb-3 fw-bold" style="font-size:12px;">YOUR OWN DATA, MADE READABLE</span>
+          <h2 class="f-headline-md mb-4">A dashboard built around the goal you actually picked.</h2>
+          <p class="f-body-lg mb-5">At setup you choose one focus â€” consistent sleep, balanced phone use, daily activity, or stress-management habits â€” and the home screen leads with the trend that matches it, with every other signal still visible underneath, never hidden. Real 14-day trend charts, and a running comparison against your own baseline, framed as 'higher or lower than your usual pattern' â€” never 'abnormal.'</p>
+          <div class="d-flex flex-column gap-3">
+            <div class="glass-card p-3" style="border-left:4px solid rgba(52,83,65,0.3);">
+              <h4 class="f-label-mono fw-bold text-onsurface mb-2" style="font-size:13px;">What's helped</h4>
+              <p class="f-body-md mb-0" style="font-size:14px;">Which of the ten actions have actually worked for you, from your own real feedback, given real visual weight instead of being buried in a settings page.</p>
+            </div>
+            <div class="glass-card p-3" style="border-left:4px solid rgba(141,169,184,0.3);">
+              <h4 class="f-label-mono fw-bold text-onsurface mb-2" style="font-size:13px;">Mood, shown honestly</h4>
+              <p class="f-body-md mb-0" style="font-size:14px;">A simple mood trend, kept fully separate from the drift score â€” never implied to explain or predict it.</p>
+            </div>
+            <div class="glass-card p-3" style="border-left:4px solid rgba(224,153,107,0.3);">
+              <h4 class="f-label-mono fw-bold text-onsurface mb-2" style="font-size:13px;">Streaks, without the guilt</h4>
+              <p class="f-body-md mb-0" style="font-size:14px;">Simple day counts for check-ins and stable routine days â€” no shaming copy, no notification if one breaks.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="glass-card p-4 p-md-5" style="border-radius:32px;">
+            <span class="f-label-mono text-accent-blue text-uppercase d-block mb-3 fw-bold" style="font-size:12px;">CHOSEN AT SETUP, NOT GUESSED</span>
+            <h3 class="f-headline-md mb-4" style="font-size:28px;">Pick one goal. It shapes what the app pays attention to first.</h3>
+            <div class="d-flex flex-column gap-3">
+              <div class="d-flex align-items-start gap-3 p-3 rounded-4" style="background:rgba(255,255,255,0.6); border:1px solid rgba(194,200,193,0.05);">
+                <span class="material-symbols-outlined text-primary-brand p-2 rounded-2" style="background:rgba(52,83,65,0.05);">bedtime</span>
+                <div>
+                  <div class="f-label-mono fw-bold text-onsurface mb-1" style="font-size:13px;">Consistent sleep</div>
+                  <div class="f-body-md" style="font-size:13px;">leads with overnight charging and phone-rhythm trends</div>
+                </div>
+              </div>
+              <div class="d-flex align-items-start gap-3 p-3 rounded-4" style="background:rgba(255,255,255,0.6); border:1px solid rgba(194,200,193,0.05);">
+                <span class="material-symbols-outlined text-primary-brand p-2 rounded-2" style="background:rgba(52,83,65,0.05);">smartphone</span>
+                <div>
+                  <div class="f-label-mono fw-bold text-onsurface mb-1" style="font-size:13px;">Balanced phone use</div>
+                  <div class="f-body-md" style="font-size:13px;">leads with screen time and lock-session trends</div>
+                </div>
+              </div>
+              <div class="d-flex align-items-start gap-3 p-3 rounded-4" style="background:rgba(255,255,255,0.6); border:1px solid rgba(194,200,193,0.05);">
+                <span class="material-symbols-outlined text-primary-brand p-2 rounded-2" style="background:rgba(52,83,65,0.05);">directions_run</span>
+                <div>
+                  <div class="f-label-mono fw-bold text-onsurface mb-1" style="font-size:13px;">Daily activity</div>
+                  <div class="f-body-md" style="font-size:13px;">leads with movement trends</div>
+                </div>
+              </div>
+              <div class="d-flex align-items-start gap-3 p-3 rounded-4" style="background:rgba(255,255,255,0.6); border:1px solid rgba(194,200,193,0.05);">
+                <span class="material-symbols-outlined text-primary-brand p-2 rounded-2" style="background:rgba(52,83,65,0.05);">self_improvement</span>
+                <div>
+                  <div class="f-label-mono fw-bold text-onsurface mb-1" style="font-size:13px;">Stress-management habits</div>
+                  <div class="f-body-md" style="font-size:13px;">leads with the mood trend and which actions have helped</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WON'T DO & PRIVACY -->
+  <section class="py-5 position-relative" style="padding-top:5rem; padding-bottom:5rem;">
+    <div class="position-absolute top-0 start-0 w-100 h-100" style="background:rgba(255,255,255,0.3); backdrop-filter:blur(48px); z-index:-1; border-top:1px solid rgba(194,200,193,0.05); border-bottom:1px solid rgba(194,200,193,0.05);"></div>
+    <div class="container-tight animate-fade-in delay-200">
+      <div class="row g-5">
+        <div class="col-12 col-md-6">
+          <h2 class="f-headline-md mb-4">What It Won't Do</h2>
+          <div class="d-flex flex-column gap-3">
+            <div class="glass-card p-3 d-flex align-items-start gap-3">
+              <span class="material-symbols-outlined text-secondary-brand p-1 rounded-2" style="font-size:20px; background:rgba(143,77,32,0.05);">close</span>
+              <p class="f-body-md mb-0" style="font-size:15px;">It won't diagnose anything. No condition, no probability, no guess dressed up as one.</p>
+            </div>
+            <div class="glass-card p-3 d-flex align-items-start gap-3">
+              <span class="material-symbols-outlined text-secondary-brand p-1 rounded-2" style="font-size:20px; background:rgba(143,77,32,0.05);">close</span>
+              <p class="f-body-md mb-0" style="font-size:15px;">It won't treat the score as a mood reading. Tested honestly, the raw drift score alone is no better than chance at predicting how someone reports feeling that day â€” the real safeguard is persistence and agreement above, not this one number.</p>
+            </div>
+            <div class="glass-card p-3 d-flex align-items-start gap-3">
+              <span class="material-symbols-outlined text-secondary-brand p-1 rounded-2" style="font-size:20px; background:rgba(143,77,32,0.05);">close</span>
+              <p class="f-body-md mb-0" style="font-size:15px;">It won't guess at emergency help. The app has no location permission and can't know your country, so it says that directly instead of showing a number that might be wrong.</p>
+            </div>
+            <div class="glass-card p-3 d-flex align-items-start gap-3">
+              <span class="material-symbols-outlined text-secondary-brand p-1 rounded-2" style="font-size:20px; background:rgba(143,77,32,0.05);">close</span>
+              <p class="f-body-md mb-0" style="font-size:15px;">It won't learn about you anywhere but your phone. No analytics SDK, no ad SDK, no crash-reporting SDK.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <h2 class="f-headline-md mb-4">Privacy</h2>
+          <div class="d-flex flex-column gap-3">
+            <div class="glass-card p-3 d-flex align-items-start gap-3">
+              <span class="material-symbols-outlined text-primary-brand p-1 rounded-2" style="font-size:20px; background:rgba(52,83,65,0.05);">key</span>
+              <p class="f-body-md mb-0" style="font-size:15px;">Four permissions, total â€” activity recognition, usage access, notifications, boot-completed.</p>
+            </div>
+            <div class="glass-card p-3 d-flex align-items-start gap-3">
+              <span class="material-symbols-outlined text-primary-brand p-1 rounded-2" style="font-size:20px; background:rgba(52,83,65,0.05);">wifi_off</span>
+              <p class="f-body-md mb-0" style="font-size:15px;">Offline after one download â€” the model is fetched once, checksum-verified, never phones out again.</p>
+            </div>
+            <div class="glass-card p-3 d-flex align-items-start gap-3">
+              <span class="material-symbols-outlined text-primary-brand p-1 rounded-2" style="font-size:20px; background:rgba(52,83,65,0.05);">toggle_off</span>
+              <p class="f-body-md mb-0" style="font-size:15px;">Per-source control â€” disable any signal and it's marked missing, never faked as zero.</p>
+            </div>
+            <div class="glass-card p-3 d-flex align-items-start gap-3">
+              <span class="material-symbols-outlined text-secondary-brand p-1 rounded-2" style="font-size:20px; background:rgba(143,77,32,0.05);">delete</span>
+              <p class="f-body-md mb-0" style="font-size:15px;">Delete everything, on demand â€” one action clears every table.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUILT, NOT DRAFTED -->
+  <section class="py-5" style="padding-top:6rem; padding-bottom:6rem;">
+    <div class="container-tight animate-fade-in delay-100">
+      <div class="text-center mb-5">
+        <span class="f-label-mono text-primary-brand text-uppercase d-block mb-3 fw-bold" style="font-size:12px;">A REAL MACHINE LEARNING SYSTEM, VERIFIED END TO END</span>
+        <h2 class="f-headline-md mx-auto" style="max-width:48rem;">Every number on this page came from a real run, not a guess.</h2>
+      </div>
+      <div class="row g-4">
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="glass-card p-4 h-100" style="border-top:3px solid var(--primary);">
+            <h3 class="f-label-mono fw-bold text-onsurface text-uppercase mb-3" style="font-size:13px;">Behavior encoder</h3>
+            <p class="f-body-md mb-0" style="font-size:14px;">A temporal convolutional network trained on real smartphone-sensing data, evaluated with leave-one-participant-out cross-validation to prevent any data leakage between people.</p>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="glass-card p-4 h-100" style="border-top:3px solid var(--accent-blue);">
+            <h3 class="f-label-mono fw-bold text-onsurface text-uppercase mb-3" style="font-size:13px;">Language model</h3>
+            <p class="f-body-md mb-0" style="font-size:14px;">Gemma 3 270M, fine-tuned on a real GPU, merged and converted to run natively on-device.</p>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="glass-card p-4 h-100" style="border-top:3px solid var(--amber-warm);">
+            <h3 class="f-label-mono fw-bold text-onsurface text-uppercase mb-3" style="font-size:13px;">Verified match</h3>
+            <p class="f-body-md mb-0" style="font-size:14px;">The converted on-device model's output differs from the original by 2.6x10^-7 relative â€” floating point rounding only, no structural mismatch.</p>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="glass-card p-4 h-100" style="border-top:3px solid var(--secondary);">
+            <h3 class="f-label-mono fw-bold text-onsurface text-uppercase mb-3" style="font-size:13px;">Tested on hardware</h3>
+            <p class="f-body-md mb-0" style="font-size:14px;">The full pipeline â€” download, load, inference â€” measured on a physical Android phone, not just an emulator.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-5 position-relative" style="padding-top:5rem; padding-bottom:5rem;">
+    <div class="position-absolute top-0 start-0 w-100 h-100" style="background:rgba(255,255,255,0.3); backdrop-filter:blur(48px); z-index:-1; border-top:1px solid rgba(194,200,193,0.05);"></div>
+    <div class="mx-auto animate-fade-in delay-200" id="faq" style="max-width:800px; padding:0 var(--margin-mobile);">
+      <h2 class="f-headline-md text-center mb-5">Common Questions</h2>
+      <div class="d-flex flex-column gap-3">
+        <div class="glass-card p-4">
+          <h3 class="f-label-mono fw-bold text-onsurface mb-2" style="font-size:14px;">Does it need an internet connection?</h3>
+          <p class="f-body-md mb-0">Only once, to download the on-device language model during setup. Everything after that runs fully offline.</p>
+        </div>
+        <div class="glass-card p-4">
+          <h3 class="f-label-mono fw-bold text-onsurface mb-2" style="font-size:14px;">Does it diagnose anything?</h3>
+          <p class="f-body-md mb-0">No. It never names a condition or claims to know why something changed â€” only that it did, and for how long.</p>
+        </div>
+        <div class="glass-card p-4">
+          <h3 class="f-label-mono fw-bold text-onsurface mb-2" style="font-size:14px;">What data does it actually collect?</h3>
+          <p class="f-body-md mb-0">Movement state, phone lock/screen timing, and charging timing. Nothing else â€” no location, microphone, camera, contacts, or message content, ever.</p>
+        </div>
+        <div class="glass-card p-4">
+          <h3 class="f-label-mono fw-bold text-onsurface mb-2" style="font-size:14px;">Is this on the app store?</h3>
+          <p class="f-body-md mb-0">Not currently â€” this is a complete, verified portfolio build, not a commercial release.</p>
+        </div>
+        <div class="glass-card p-4">
+          <h3 class="f-label-mono fw-bold text-onsurface mb-2" style="font-size:14px;">What happens if I delete the app?</h3>
+          <p class="f-body-md mb-0">All data lives only on the device; uninstalling removes it. Everything can also be cleared manually at any time from within the app.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSING CTA -->
+  <section class="position-relative text-center overflow-hidden" style="padding-top:6rem; padding-bottom:6rem; background:var(--primary); color:var(--on-primary);">
+    <div class="position-absolute top-0 start-0 w-100 h-100" style="background:linear-gradient(to top, rgba(0,0,0,0.2), transparent);"></div>
+    <div class="position-absolute top-50 start-50 translate-middle" style="width:600px;height:600px;background:rgba(173,207,184,0.1);border-radius:50%;filter:blur(64px);"></div>
+    <div class="mx-auto position-relative animate-fade-in delay-100" style="max-width:800px; padding:0 var(--margin-mobile); z-index:2;">
+      <div class="d-inline-block px-4 py-2 rounded-pill f-label-mono text-uppercase mb-4" style="font-size:11px; letter-spacing:.15em; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); backdrop-filter:blur(8px);">Portfolio build â€” a complete, verified system</div>
+      <h2 class="mb-5 mx-auto" style="font-family:'Inter Tight'; font-weight:700; font-size:36px; line-height:1.2; max-width:40rem;">Built solo, end to end â€” dataset to fine-tune to on-device inference to a real phone in hand.</h2>
+      <button class="btn btn-pill btn-pill-gold px-5 py-3 animate-subtle-pulse">Get in touch</button>
+    </div>
+  </section>
+
+</main>
+
+<footer style="background:rgba(255,255,255,0.8); backdrop-filter:blur(24px); border-top:1px solid rgba(194,200,193,0.1); padding:3rem 0;">
+  <div class="container-tight d-flex flex-column flex-md-row justify-content-between align-items-center gap-4 text-center text-md-start">
+    <div>
+      <div class="f-headline-md fw-bold mb-1" style="font-size:20px;">MindPulse</div>
+      <div class="f-body-md" style="font-size:14px;">Â© 2026 MindPulse. Privacy-first behavioral sensing.</div>
+    </div>
+    <div class="d-flex flex-wrap justify-content-center gap-4" style="font-size:14px;">
+      <a class="text-onsurface-variant text-decoration-none fw-medium" href="#what-it-senses">What it senses</a>
+      <a class="text-onsurface-variant text-decoration-none fw-medium" href="#how-it-decides">How it decides</a>
+      <a class="text-onsurface-variant text-decoration-none fw-medium" href="#dashboard">Dashboard</a>
+      <a class="text-onsurface-variant text-decoration-none fw-medium" href="#faq">FAQ</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,772 @@
+﻿<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MindPulse - Privacy-first behavioral insights</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Inter+Tight:wght@500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#694244",
+                        "primary-container": "#4c6b58",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#ffb68c",
+                        "inverse-on-surface": "#f3f1e9",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed-dim": "#adcfb8",
+                        "surface-container-low": "#f6f3eb",
+                        "surface-dim": "#dcdad2",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed-dim": "#efb9bb",
+                        "outline-variant": "#c2c8c1",
+                        "on-primary-fixed": "#022112",
+                        "on-secondary-fixed": "#321200",
+                        "secondary": "#8f4d20",
+                        "amber-warm": "#E0996B",
+                        "surface-variant": "#e5e2db",
+                        "secondary-container": "#fea772",
+                        "on-tertiary-fixed": "#301215",
+                        "on-error": "#ffffff",
+                        "on-tertiary-container": "#ffd9da",
+                        "on-primary-container": "#c7ead2",
+                        "accent-gold": "#F2C94C",
+                        "on-error-container": "#93000a",
+                        "background": "#fcf9f1",
+                        "surface-container": "#f0eee6",
+                        "tertiary-fixed": "#ffdada",
+                        "outline": "#727973",
+                        "error": "#ba1a1a",
+                        "on-surface-variant": "#424843",
+                        "primary": "#345341",
+                        "on-background": "#1c1c17",
+                        "on-secondary-fixed-variant": "#723609",
+                        "background-light": "#FAF7F2",
+                        "inverse-primary": "#adcfb8",
+                        "on-secondary-container": "#773a0e",
+                        "accent-blue": "#8DA9B8",
+                        "surface-container-highest": "#e5e2db",
+                        "background-dark": "#1C1E1B",
+                        "surface-tint": "#466552",
+                        "on-primary-fixed-variant": "#2f4d3c",
+                        "secondary-fixed": "#ffdbc9",
+                        "on-surface": "#1c1c17",
+                        "inverse-surface": "#31312c",
+                        "primary-fixed": "#c8ebd3",
+                        "tertiary-container": "#84595b",
+                        "surface-container-high": "#ebe8e0",
+                        "sage-light": "#9CB89F",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#633c3e",
+                        "surface-bright": "#fcf9f1",
+                        "surface": "#fcf9f1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "xl": "80px",
+                        "xs": "4px",
+                        "base": "8px",
+                        "md": "24px",
+                        "lg": "48px",
+                        "margin-desktop": "64px",
+                        "margin-mobile": "16px",
+                        "sm": "12px",
+                        "2xl": "120px"
+                    },
+                    "fontFamily": {
+                        "stat-lg": ["IBM Plex Mono", "ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
+                        "label-mono": ["IBM Plex Mono", "ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
+                        "body-md": ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+                        "headline-lg-mobile": ["Inter Tight", "Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+                        "body-lg": ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+                        "headline-md": ["Inter Tight", "Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+                        "headline-lg": ["Inter Tight", "Inter", "ui-sans-serif", "system-ui", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "stat-lg": ["20px", { "lineHeight": "1.0", "fontWeight": "600" }],
+                        "label-mono": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.08em", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["36px", { "lineHeight": "1.1", "fontWeight": "700", "letterSpacing": "0" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["28px", { "lineHeight": "1.2", "fontWeight": "600", "letterSpacing": "0" }],
+                        "headline-lg": ["56px", { "lineHeight": "1.05", "letterSpacing": "0", "fontWeight": "700" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        html {
+            scroll-behavior: smooth;
+            background: #FAF7F2;
+        }
+
+        body {
+            margin: 0;
+            padding-bottom: 0;
+        }
+
+        section[id] {
+            scroll-margin-top: 96px;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Premium Soft Elevation Cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid theme('colors.outline-variant' / 10%);
+            box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.03), 0 2px 8px -2px rgba(0, 0, 0, 0.02);
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.6);
+            border-color: theme('colors.primary-fixed-dim' / 30%);
+            box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.08), 0 4px 12px -4px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Subtle Pulse Animation */
+        @keyframes subtlePulse {
+            0% { box-shadow: 0 0 0 0 rgba(76, 107, 88, 0.2); }
+            70% { box-shadow: 0 0 0 10px rgba(76, 107, 88, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(76, 107, 88, 0); }
+        }
+        
+        .animate-subtle-pulse {
+            animation: subtlePulse 3s infinite;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in {
+            animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+        
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+        
+        /* Large subtle background gradients */
+        .bg-glow-top {
+            position: fixed;
+            top: -20%;
+            left: -10%;
+            width: 70%;
+            height: 70%;
+            background: radial-gradient(circle, rgba(173, 207, 184, 0.15) 0%, rgba(250, 247, 242, 0) 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .bg-glow-bottom {
+            position: fixed;
+            bottom: -20%;
+            right: -10%;
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(circle, rgba(224, 153, 107, 0.08) 0%, rgba(250, 247, 242, 0) 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light text-on-background font-body-md min-h-screen antialiased selection:bg-amber-warm/30 relative overflow-x-hidden">
+<!-- Background Glows -->
+<div class="bg-glow-top"></div>
+<div class="bg-glow-bottom"></div>
+<!-- TopNavBar -->
+<nav class="fixed top-3 left-0 right-0 z-50 px-margin-mobile md:px-margin-desktop">
+<div class="max-w-[1200px] mx-auto rounded-[18px] border border-outline-variant/20 bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-2xl shadow-[0_18px_50px_-34px_rgba(28,28,23,0.55)]">
+<div class="flex h-[60px] items-center justify-between gap-3 px-3 md:px-4">
+<a class="group flex min-w-0 items-center rounded-xl px-2.5 py-2 transition-colors hover:bg-surface-container-low/70" href="#top" aria-label="MindPulse home">
+<span class="font-headline-md text-[19px] font-bold text-primary dark:text-primary-fixed">MindPulse</span>
+</a>
+<div class="hidden lg:flex items-center rounded-full border border-outline-variant/15 bg-surface-container-lowest/50 p-1">
+<a class="rounded-full px-3.5 py-2 font-body-md text-[13px] font-semibold text-on-surface-variant transition-all hover:bg-primary hover:text-on-primary" href="#product-flow">Flow</a>
+<a class="rounded-full px-3.5 py-2 font-body-md text-[13px] font-semibold text-on-surface-variant transition-all hover:bg-primary hover:text-on-primary" href="#why">Why</a>
+<a class="rounded-full px-3.5 py-2 font-body-md text-[13px] font-semibold text-on-surface-variant transition-all hover:bg-primary hover:text-on-primary" href="#what-it-senses">Signals</a>
+<a class="rounded-full px-3.5 py-2 font-body-md text-[13px] font-semibold text-on-surface-variant transition-all hover:bg-primary hover:text-on-primary" href="#how-it-decides">Decision gates</a>
+<a class="rounded-full px-3.5 py-2 font-body-md text-[13px] font-semibold text-on-surface-variant transition-all hover:bg-primary hover:text-on-primary" href="#dashboard">Dashboard</a>
+<a class="rounded-full px-3.5 py-2 font-body-md text-[13px] font-semibold text-on-surface-variant transition-all hover:bg-primary hover:text-on-primary" href="#faq">FAQ</a>
+</div>
+<div class="hidden md:flex items-center gap-2">
+<a class="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2.5 font-body-md text-[13px] font-semibold text-on-primary shadow-sm transition-all hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-md" href="#download">
+Download
+<span class="material-symbols-outlined" style="font-size:16px;">download</span>
+</a>
+</div>
+<details class="relative lg:hidden">
+<summary class="flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded-xl border border-outline-variant/20 bg-surface-container-lowest/70 text-primary transition-colors hover:bg-surface-container-low [&::-webkit-details-marker]:hidden" aria-label="Open navigation menu">
+<span class="material-symbols-outlined" style="font-size:22px;">menu</span>
+</summary>
+<div class="absolute right-0 top-12 w-[230px] rounded-2xl border border-outline-variant/20 bg-background-light/95 p-2 shadow-[0_24px_70px_-28px_rgba(28,28,23,0.55)] backdrop-blur-2xl">
+<a class="block rounded-xl px-3 py-2.5 font-body-md text-[14px] font-semibold text-on-surface-variant hover:bg-surface-container-low hover:text-primary" href="#product-flow">Product flow</a>
+<a class="block rounded-xl px-3 py-2.5 font-body-md text-[14px] font-semibold text-on-surface-variant hover:bg-surface-container-low hover:text-primary" href="#why">Why MindPulse</a>
+<a class="block rounded-xl px-3 py-2.5 font-body-md text-[14px] font-semibold text-on-surface-variant hover:bg-surface-container-low hover:text-primary" href="#what-it-senses">Signals</a>
+<a class="block rounded-xl px-3 py-2.5 font-body-md text-[14px] font-semibold text-on-surface-variant hover:bg-surface-container-low hover:text-primary" href="#how-it-decides">Decision gates</a>
+<a class="block rounded-xl px-3 py-2.5 font-body-md text-[14px] font-semibold text-on-surface-variant hover:bg-surface-container-low hover:text-primary" href="#dashboard">Dashboard</a>
+<a class="block rounded-xl px-3 py-2.5 font-body-md text-[14px] font-semibold text-on-surface-variant hover:bg-surface-container-low hover:text-primary" href="#faq">FAQ</a>
+<a class="mt-1 flex items-center justify-between rounded-xl bg-primary px-3 py-2.5 font-body-md text-[14px] font-semibold text-on-primary" href="#download">Download<span class="material-symbols-outlined" style="font-size:16px;">download</span></a>
+</div>
+</details>
+</div>
+</div>
+</nav>
+<main id="top" class="pt-[68px] relative z-10">
+<!-- Hero Section -->
+<section class="max-w-[1200px] mx-auto px-margin-mobile md:px-margin-desktop pt-8 pb-20 md:pt-12 md:pb-24 flex flex-col md:flex-row gap-12 md:gap-xl items-center relative">
+<div class="w-full md:w-1/2 flex flex-col gap-6 animate-fade-in">
+<span class="font-label-mono text-xs text-secondary uppercase tracking-[0.15em] font-bold border-b border-secondary/20 pb-2 w-fit">PRIVACY-FIRST BEHAVIORAL INSIGHTS</span>
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary leading-tight">
+                    Gentle check-ins when your daily patterns start to change.
+                </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl leading-relaxed">
+                    It learns simple phone-based routine patterns on your device, then checks in only when something meaningfully changes for several days.
+                </p>
+<div class="flex flex-wrap gap-3 mt-3">
+<a href="#product-flow" class="inline-flex items-center justify-center bg-primary text-on-primary px-5 py-2.5 rounded-full font-body-md text-[14px] hover:bg-primary/90 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md font-semibold animate-subtle-pulse">See how it works</a>
+<a href="#download" class="inline-flex items-center justify-center gap-1.5 bg-surface/70 backdrop-blur-sm border border-outline-variant/25 text-primary px-5 py-2.5 rounded-full font-body-md text-[14px] hover:bg-surface transition-all duration-300 hover:-translate-y-0.5 font-semibold shadow-sm">Download<span class="material-symbols-outlined" style="font-size:16px;">download</span></a>
+</div>
+<div class="flex flex-wrap gap-3 mt-6">
+<div class="glass-card px-4 py-2 rounded-full flex items-center gap-2 font-label-mono text-[11px] text-on-surface"><span class="material-symbols-outlined text-accent-gold" style="font-size: 16px;">sensors</span><span>Movement, screen rhythm, charging</span></div>
+<div class="glass-card px-4 py-2 rounded-full flex items-center gap-2 font-label-mono text-[11px] text-on-surface"><span class="material-symbols-outlined text-accent-blue" style="font-size: 16px;">cloud_off</span><span>No cloud processing</span></div>
+<div class="glass-card px-4 py-2 rounded-full flex items-center gap-2 font-label-mono text-[11px] text-on-surface"><span class="material-symbols-outlined text-amber-warm" style="font-size: 16px;">history</span><span>14-day personal baseline</span></div>
+<div class="glass-card px-4 py-2 rounded-full flex items-center gap-2 font-label-mono text-[11px] text-on-surface"><span class="material-symbols-outlined text-primary" style="font-size: 16px;">memory</span><span>Local AI responses</span></div>
+</div>
+</div>
+<div class="w-full md:w-1/2 relative h-[520px] md:h-[600px] flex justify-center items-center animate-fade-in delay-200">
+<div class="relative flex h-full w-full items-center justify-center overflow-visible">
+<div class="absolute left-1/2 top-1/2 h-[560px] w-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle_at_50%_45%,rgba(173,207,184,0.50)_0%,rgba(224,153,107,0.24)_40%,rgba(250,247,242,0)_74%)] blur-2xl -z-10"></div>
+<div class="absolute left-[54%] top-[46%] h-[380px] w-[380px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/18 blur-3xl -z-10"></div>
+<video class="relative z-10 h-[500px] md:h-[590px] w-auto max-w-full object-contain mix-blend-normal drop-shadow-[0_30px_70px_rgba(52,83,65,0.16)]" autoplay muted playsinline preload="metadata" aria-label="MindPulse app preview showing a routine change check-in">
+<source src="assets/hero-video-transparent.webm" type="video/webm"/>
+<source src="assets/hero-video-bg-fixed.mp4" type="video/mp4"/>
+</video>
+<div class="absolute bottom-8 left-1/2 h-12 w-[260px] -translate-x-1/2 rounded-full bg-primary/20 blur-2xl -z-10"></div>
+</div>
+</div>
+</section>
+<!-- 6. PRODUCT FLOW -->
+<section class="pt-14 pb-24 md:pt-16 md:pb-28 relative overflow-hidden" id="product-flow">
+<div class="absolute inset-0 bg-surface-container-lowest/45 backdrop-blur-3xl -z-10 border-y border-outline-variant/5"></div>
+<div class="max-w-[1200px] mx-auto px-margin-mobile md:px-margin-desktop relative z-10 animate-fade-in delay-100">
+<div class="mb-14 max-w-3xl">
+<span class="font-label-mono text-xs text-secondary uppercase tracking-[0.15em] font-bold mb-4 block">FROM SIGNAL TO SUPPORT</span>
+<h2 class="font-headline-md text-headline-md text-primary mb-5 leading-tight">From baseline to one useful check-in.</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">MindPulse learns your routine first, stays quiet when things look stable, and only steps in when a sustained change is worth reflecting on.</p>
+</div>
+<div class="relative">
+<div class="absolute left-1/2 top-1/2 h-[420px] w-[82%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle_at_50%_50%,rgba(173,207,184,0.28)_0%,rgba(224,153,107,0.10)_44%,rgba(250,247,242,0)_72%)] blur-3xl -z-10"></div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-4 items-stretch">
+<div class="group rounded-[28px] border border-outline-variant/12 bg-background-light/70 p-4 shadow-[0_18px_55px_-42px_rgba(28,28,23,0.55)] transition-all duration-300 hover:-translate-y-1">
+<div class="mb-4 flex items-center justify-between">
+<span class="font-label-mono text-[11px] text-accent-blue uppercase tracking-widest font-bold">01</span>
+<span class="font-body-md text-[13px] font-semibold text-on-surface-variant">Learn baseline</span>
+</div>
+<div class="mx-auto w-[220px] overflow-hidden rounded-[30px] border-[7px] border-on-surface bg-on-surface shadow-[0_24px_60px_-34px_rgba(28,28,23,0.65)]">
+<img src="assets/flow-learning-state.png" alt="MindPulse learning the user's routine baseline" class="block w-full rounded-[23px]" loading="lazy"/>
+</div>
+</div>
+<div class="group rounded-[28px] border border-primary/14 bg-primary/6 p-4 shadow-[0_18px_55px_-42px_rgba(28,28,23,0.55)] transition-all duration-300 hover:-translate-y-1 ">
+<div class="mb-4 flex items-center justify-between">
+<span class="font-label-mono text-[11px] text-primary uppercase tracking-widest font-bold">02</span>
+<span class="font-body-md text-[13px] font-semibold text-on-surface-variant">Stay quiet</span>
+</div>
+<div class="mx-auto w-[220px] overflow-hidden rounded-[30px] border-[7px] border-on-surface bg-on-surface shadow-[0_26px_68px_-34px_rgba(28,28,23,0.68)]">
+<img src="assets/flow-stable-home.png" alt="MindPulse stable home screen showing normal routine state" class="block w-full rounded-[23px]" loading="lazy"/>
+</div>
+</div>
+<div class="group rounded-[30px] border border-secondary/20 bg-secondary/8 p-4 shadow-[0_24px_76px_-36px_rgba(52,83,65,0.42)] transition-all duration-300 hover:-translate-y-1 ">
+<div class="mb-4 flex items-center justify-between">
+<span class="font-label-mono text-[11px] text-secondary uppercase tracking-widest font-bold">03</span>
+<span class="font-body-md text-[13px] font-semibold text-on-surface-variant">Notice change</span>
+</div>
+<div class="mx-auto w-[220px] overflow-hidden rounded-[30px] border-[7px] border-on-surface bg-on-surface shadow-[0_30px_78px_-36px_rgba(28,28,23,0.72)]">
+<img src="assets/flow-change-detected.png" alt="MindPulse routine change detected screen" class="block w-full rounded-[23px]" loading="lazy"/>
+</div>
+</div>
+<div class="group rounded-[28px] border border-amber-warm/18 bg-amber-warm/8 p-4 shadow-[0_18px_55px_-42px_rgba(28,28,23,0.55)] transition-all duration-300 hover:-translate-y-1">
+<div class="mb-4 flex items-center justify-between">
+<span class="font-label-mono text-[11px] text-amber-warm uppercase tracking-widest font-bold">04</span>
+<span class="font-body-md text-[13px] font-semibold text-on-surface-variant">Suggest one step</span>
+</div>
+<div class="mx-auto w-[220px] overflow-hidden rounded-[30px] border-[7px] border-on-surface bg-on-surface shadow-[0_24px_60px_-34px_rgba(28,28,23,0.65)]">
+<img src="assets/flow-intervention.png" alt="MindPulse intervention screen with one small suggested action" class="block w-full rounded-[23px]" loading="lazy"/>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-14 rounded-[23px] border border-primary/12 bg-primary/6 px-5 py-4 text-center">
+<p class="font-body-md text-[14px] text-on-surface-variant leading-relaxed">The flow is intentionally narrow: no endless chat, no diagnosis, and no pressure to log every day.</p>
+</div>
+</div>
+</section>
+<!-- 2. WHY THIS, NOT ANOTHER MOOD TRACKER -->
+<section id="why" class="max-w-[1200px] mx-auto px-margin-mobile md:px-margin-desktop py-24 md:py-28 relative animate-fade-in delay-100">
+<div class="mb-12 max-w-3xl">
+<span class="font-label-mono text-xs text-secondary uppercase tracking-[0.15em] font-bold mb-4 block">WHY MINDPULSE IS DIFFERENT</span>
+<h2 class="font-headline-md text-headline-md text-primary leading-tight mb-4">A calmer way to understand changes in your daily routine.</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed max-w-2xl">It does not ask you to journal every day or guess how you feel. It uses simple phone signals, compares them to your own normal pattern, and only checks in after a sustained shift.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+<div class="glass-card rounded-[20px] p-6 md:p-7 group overflow-hidden">
+<div class="flex items-center justify-between gap-6">
+<div class="max-w-[300px] text-left">
+
+<h3 class="font-headline-md text-[20px] font-semibold text-on-surface mb-2">Works quietly in the background</h3>
+<p class="font-body-md text-[15px] text-on-surface-variant leading-relaxed max-w-[280px]">You can add a check-in when you want, but the app still works without daily forms or long mood logs.</p>
+</div>
+<div class="hidden sm:flex shrink-0 justify-end">
+<div class="relative w-[170px] overflow-hidden rounded-2xl shadow-[0_14px_34px_-24px_rgba(28,28,23,0.45)]">
+<img src="assets/works-quietly-background.png" alt="Illustration of a person working while a phone app runs quietly in the background" class="aspect-[4/3] w-full rounded-2xl object-cover object-center" loading="lazy"/>
+</div>
+</div>
+</div>
+</div>
+<div class="glass-card rounded-[20px] p-6 md:p-7 group overflow-hidden">
+<div class="flex items-center justify-between gap-6">
+<div class="max-w-[300px] text-left">
+<h3 class="font-headline-md text-[20px] font-semibold text-on-surface mb-2">Learns your personal baseline</h3>
+<p class="font-body-md text-[15px] text-on-surface-variant leading-relaxed max-w-[280px]">It compares today with your usual routine, not with a generic idea of what a normal day should look like.</p>
+</div>
+<div class="hidden sm:flex shrink-0 justify-end">
+<div class="relative w-[170px] overflow-hidden rounded-2xl shadow-[0_14px_34px_-24px_rgba(28,28,23,0.45)]">
+<img src="assets/personal-baseline-phone.png" alt="Illustration of a phone showing a personal routine baseline" class="aspect-[4/3] w-full rounded-2xl object-cover object-center" loading="lazy"/>
+</div>
+</div>
+</div>
+</div>
+<div class="glass-card rounded-[20px] p-6 md:p-7 group overflow-hidden">
+<div class="flex items-center justify-between gap-6">
+<div class="max-w-[300px] text-left">
+<h3 class="font-headline-md text-[20px] font-semibold text-on-surface mb-2">Keeps sensitive data on your phone</h3>
+<p class="font-body-md text-[15px] text-on-surface-variant leading-relaxed max-w-[280px]">No messages, microphone, camera, contacts, or precise location. Routine insights are processed locally.</p>
+</div>
+<div class="hidden sm:flex shrink-0 justify-end">
+<div class="relative w-[170px] overflow-hidden rounded-2xl shadow-[0_14px_34px_-24px_rgba(28,28,23,0.45)]">
+<img src="assets/privacy-phone.png" alt="Illustration of a phone protected by a soft privacy shield" class="aspect-[4/3] w-full rounded-2xl object-cover object-center" loading="lazy"/>
+</div>
+</div>
+</div>
+</div>
+<div class="glass-card rounded-[20px] p-6 md:p-7 group overflow-hidden">
+<div class="flex items-center justify-between gap-6">
+<div class="max-w-[300px] text-left">
+<h3 class="font-headline-md text-[20px] font-semibold text-on-surface mb-2">Gives support, not diagnosis</h3>
+<p class="font-body-md text-[15px] text-on-surface-variant leading-relaxed max-w-[280px]">When a pattern changes for several days, it offers one gentle question and one small practical action.</p>
+</div>
+<div class="hidden sm:flex shrink-0 justify-end">
+<div class="relative w-[170px] overflow-hidden rounded-2xl shadow-[0_14px_34px_-24px_rgba(28,28,23,0.45)]">
+<img src="assets/support-phone.png" alt="Illustration of a phone showing gentle support actions" class="aspect-[4/3] w-full rounded-2xl object-cover object-center" loading="lazy"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- What It Notices Section -->
+<section class="relative z-10 py-24 md:py-28" id="what-it-senses">
+<!-- Subtle background distinct from sections above/below -->
+<div class="absolute inset-0 bg-surface-container-lowest/40 backdrop-blur-3xl -z-10 border-y border-outline-variant/5"></div>
+<div class="max-w-[1200px] mx-auto px-margin-mobile md:px-margin-desktop animate-fade-in delay-200">
+<div class="mb-16 text-center">
+<span class="font-label-mono text-xs text-secondary uppercase tracking-[0.15em] font-bold mb-4 block">ROUTINE SIGNALS</span>
+<h2 class="font-headline-md text-headline-md text-primary mb-4">What It Notices</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">MindPulse looks for broad routine patterns your phone can observe without reading personal content.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="glass-card rounded-[23px] overflow-hidden group">
+<div class="p-3 pb-0">
+<img alt="Illustration of phone movement signals" class="aspect-[4/3] w-full rounded-2xl object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]" src="assets/signal-movement.png" loading="lazy"/>
+</div>
+<div class="p-7 pt-6 text-left">
+<h3 class="font-headline-md text-[21px] font-semibold text-on-surface mb-3">Movement rhythm</h3>
+<p class="font-body-md text-[15px] text-on-surface-variant leading-relaxed">Recognizes broad activity states like still time, walking, and running, without tracking where you go.</p>
+</div>
+</div>
+<div class="glass-card rounded-[23px] overflow-hidden group">
+<div class="p-3 pb-0">
+<img alt="Illustration of phone screen rhythm signals" class="aspect-[4/3] w-full rounded-2xl object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]" src="assets/signal-phone-rhythm.png" loading="lazy"/>
+</div>
+<div class="p-7 pt-6 text-left">
+<h3 class="font-headline-md text-[21px] font-semibold text-on-surface mb-3">Screen rhythm</h3>
+<p class="font-body-md text-[15px] text-on-surface-variant leading-relaxed">Notices when your phone is active, locked, or unused for long stretches. It never reads apps, messages, or screen content.</p>
+</div>
+</div>
+<div class="glass-card rounded-[23px] overflow-hidden group">
+<div class="p-3 pb-0">
+<img alt="Illustration of phone charging routine signals" class="aspect-[4/3] w-full rounded-2xl object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]" src="assets/signal-charging.png" loading="lazy"/>
+</div>
+<div class="p-7 pt-6 text-left">
+<h3 class="font-headline-md text-[21px] font-semibold text-on-surface mb-3">Charging routine</h3>
+<p class="font-body-md text-[15px] text-on-surface-variant leading-relaxed">Uses charging times, especially overnight patterns, as a simple clue about routine changes. No location or wearable data needed.</p>
+</div>
+</div>
+</div><div class="mt-16 flex justify-center">
+<p class="font-label-mono text-[11px] text-outline text-center glass-card py-4 px-8 rounded-full inline-block max-w-3xl leading-relaxed tracking-wide">No microphone, camera, contacts, messages, call logs, or precise location. Raw events are deleted after 48 hours; only daily routine summaries stay on your phone.</p>
+</div>
+</div>
+</section>
+<!-- How It Decides Section -->
+<section class="py-24 md:py-28 relative" id="how-it-decides">
+<div class="max-w-[1200px] mx-auto px-margin-mobile md:px-margin-desktop relative z-10 animate-fade-in delay-100">
+<div class="mb-16">
+<span class="font-label-mono text-xs text-secondary uppercase tracking-[0.15em] font-bold mb-4 block">DECISION GATES</span>
+<h2 class="font-headline-md text-headline-md text-primary mb-4">How It Decides</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Four checks keep the app quiet until a change is sustained, meaningful, and safe to mention.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<div class="rounded-[23px] p-8 md:col-span-2 relative overflow-hidden group border border-accent-blue/20 bg-accent-blue/8 shadow-[0_16px_50px_-38px_rgba(28,28,23,0.45)] transition-all duration-300 hover:-translate-y-1">
+<div class="font-label-mono text-[11px] text-accent-blue mb-6 font-bold bg-accent-blue/10 border border-accent-blue/20 w-fit px-3 py-1.5 rounded-md tracking-widest">GATE 1</div>
+<h3 class="font-headline-md text-2xl text-on-surface mb-3 group-hover:text-primary transition-colors">14 Days</h3>
+<p class="font-body-md text-on-surface-variant leading-relaxed relative z-10">Learns your own baseline first: your personal normal, not a benchmark borrowed from anyone else.</p>
+</div>
+<div class="rounded-[23px] p-8 md:col-span-2 relative overflow-hidden group border border-amber-warm/20 bg-amber-warm/8 shadow-[0_16px_50px_-38px_rgba(28,28,23,0.45)] transition-all duration-300 hover:-translate-y-1">
+<div class="font-label-mono text-[11px] text-amber-warm mb-6 font-bold bg-amber-warm/10 border border-amber-warm/20 w-fit px-3 py-1.5 rounded-md tracking-widest">GATE 2</div>
+<h3 class="font-headline-md text-2xl text-on-surface mb-3 group-hover:text-primary transition-colors">3+ Days</h3>
+<p class="font-body-md text-on-surface-variant leading-relaxed relative z-10">A single unusual day is treated as noise. Only a deviation that persists for three or more consecutive days is considered.</p>
+</div>
+<div class="rounded-[23px] p-8 md:col-span-1 md:row-span-2 flex flex-col relative overflow-hidden group border border-primary/18 bg-primary/7 shadow-[0_16px_50px_-38px_rgba(28,28,23,0.45)] transition-all duration-300 hover:-translate-y-1">
+<div>
+<div class="font-label-mono text-[11px] text-primary mb-6 font-bold bg-primary/8 border border-primary/15 w-fit px-3 py-1.5 rounded-md tracking-widest">GATE 3</div>
+<h3 class="font-headline-md text-2xl text-on-surface mb-3 group-hover:text-primary transition-colors">2+ Signal Groups</h3>
+</div>
+<p class="font-body-md text-on-surface-variant leading-relaxed mt-4 flex-1">The change has to show up across at least two of the three signal groups at once.</p>
+</div>
+<div class="rounded-[23px] p-8 md:col-span-3 flex items-center justify-between relative overflow-hidden group border border-secondary/18 bg-secondary/7 shadow-[0_16px_50px_-38px_rgba(28,28,23,0.45)] transition-all duration-300 hover:-translate-y-1">
+<div class="max-w-xl">
+<div class="font-label-mono text-[11px] text-secondary mb-6 font-bold bg-secondary/10 border border-secondary/20 w-fit px-3 py-1.5 rounded-md tracking-widest">GATE 4</div>
+<h3 class="font-headline-md text-2xl text-on-surface mb-3 group-hover:text-primary transition-colors">7-Day Cooldown</h3>
+<p class="font-body-md text-on-surface-variant leading-relaxed">After surfacing a change once, it stays quiet before mentioning another one.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 5. WHAT IT SAYS -->
+<section class="py-24 md:py-28 relative overflow-hidden" id="what-it-says">
+<div class="absolute inset-0 bg-surface-container-lowest/30 backdrop-blur-3xl -z-10 border-y border-outline-variant/5"></div>
+<div class="max-w-[1200px] mx-auto px-margin-mobile md:px-margin-desktop relative z-10 animate-fade-in delay-200">
+<div class="mb-14 max-w-4xl">
+<span class="font-label-mono text-xs text-secondary uppercase tracking-[0.15em] font-bold mb-4 block">WHAT IT SAYS</span>
+<h2 class="font-headline-md text-headline-md text-primary mb-5 leading-tight">A short check-in, not an open-ended chatbot.</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl leading-relaxed">When a routine change passes every gate, the on-device model creates one neutral explanation, one reflective question, and one small action from a pre-approved list. If anything looks off, a fixed safe fallback is shown instead.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-6 items-stretch">
+<div class="rounded-[28px] border border-primary/14 bg-primary/6 p-7 md:p-8 shadow-[0_16px_50px_-38px_rgba(28,28,23,0.45)]">
+<div class="grid gap-4">
+<div class="flex gap-4 rounded-2xl bg-background-light/70 border border-outline-variant/15 p-4">
+<span class="material-symbols-outlined text-primary shrink-0" style="font-size:24px;">chat_bubble</span>
+<div>
+<h3 class="font-headline-md text-[19px] font-semibold text-on-surface mb-1">Neutral explanation</h3>
+<p class="font-body-md text-[14px] text-on-surface-variant leading-relaxed">Plain language about what changed in your routine, without diagnosis or certainty about how you feel.</p>
+</div>
+</div>
+<div class="flex gap-4 rounded-2xl bg-background-light/70 border border-outline-variant/15 p-4">
+<span class="material-symbols-outlined text-accent-blue shrink-0" style="font-size:24px;">psychology_alt</span>
+<div>
+<h3 class="font-headline-md text-[19px] font-semibold text-on-surface mb-1">One reflective question</h3>
+<p class="font-body-md text-[14px] text-on-surface-variant leading-relaxed">A gentle prompt to help you connect the change with your real-life context.</p>
+</div>
+</div>
+<div class="flex gap-4 rounded-2xl bg-background-light/70 border border-outline-variant/15 p-4">
+<span class="material-symbols-outlined text-secondary shrink-0" style="font-size:24px;">task_alt</span>
+<div>
+<h3 class="font-headline-md text-[19px] font-semibold text-on-surface mb-1">One practical action</h3>
+<p class="font-body-md text-[14px] text-on-surface-variant leading-relaxed">A small step that fits your selected time, chosen from a controlled action library.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="rounded-[23px] border border-primary/15 bg-background-light/75 p-6 text-center flex flex-col justify-center min-h-[150px] shadow-[0_14px_42px_-34px_rgba(28,28,23,0.45)]">
+<div class="font-label-mono text-[11px] text-outline mb-3 tracking-wider uppercase">Valid output</div>
+<div class="font-stat-lg text-[42px] text-primary tabular-nums"><span class="metric-number" data-target="100" data-suffix="%">0%</span></div>
+</div>
+<div class="rounded-[23px] border border-accent-blue/18 bg-accent-blue/8 p-6 text-center flex flex-col justify-center min-h-[150px] shadow-[0_14px_42px_-34px_rgba(28,28,23,0.45)]">
+<div class="font-label-mono text-[11px] text-outline mb-3 tracking-wider uppercase">Approved action</div>
+<div class="font-stat-lg text-[42px] text-primary tabular-nums"><span class="metric-number" data-target="100" data-suffix="%">0%</span></div>
+</div>
+<div class="rounded-[23px] border border-amber-warm/18 bg-amber-warm/8 p-6 text-center flex flex-col justify-center min-h-[150px] shadow-[0_14px_42px_-34px_rgba(28,28,23,0.45)]">
+<div class="font-label-mono text-[11px] text-outline mb-3 tracking-wider uppercase">Correct duration</div>
+<div class="font-stat-lg text-[42px] text-primary tabular-nums"><span class="metric-number" data-target="100" data-suffix="%">0%</span></div>
+</div>
+<div class="rounded-[23px] border border-secondary/18 bg-secondary/8 p-6 text-center flex flex-col justify-center min-h-[150px] shadow-[0_14px_42px_-34px_rgba(28,28,23,0.45)]">
+<div class="font-label-mono text-[11px] text-outline mb-3 tracking-wider uppercase">Diagnosis or meds</div>
+<div class="font-stat-lg text-[42px] text-secondary tabular-nums"><span class="metric-number" data-target="0" data-suffix="%">0%</span></div>
+</div>
+</div>
+</div>
+<p class="text-center font-label-mono text-[10px] text-outline/60 mt-8 tracking-widest uppercase">Measured on 565 held-out real test examples</p>
+</div>
+</section>
+
+<!-- 6. YOUR DASHBOARD & FOUR GOALS -->
+<section class="py-24 md:py-28 relative overflow-hidden" id="dashboard">
+<div class="max-w-[1200px] mx-auto px-margin-mobile md:px-margin-desktop relative z-10 flex flex-col md:flex-row gap-14 animate-fade-in delay-100">
+<div class="w-full md:w-1/2">
+<span class="font-label-mono text-xs text-secondary uppercase tracking-[0.15em] font-bold mb-4 block">YOUR OWN DATA, MADE READABLE</span>
+<h2 class="font-headline-md text-headline-md text-primary mb-5 leading-tight">A simple dashboard for the routine you care about.</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-10 leading-relaxed">Choose one focus during setup, and the app brings the most relevant trend to the front. Everything is compared with your own baseline and described as a routine change, never as a diagnosis.</p>
+<div class="space-y-4">
+<div class="rounded-[20px] border border-primary/15 bg-primary/6 p-5 hover:bg-primary/8 transition-colors">
+<h4 class="font-headline-md text-[18px] font-semibold text-on-surface mb-2">What helped recently</h4>
+<p class="font-body-md text-[14px] text-on-surface-variant leading-relaxed">See which small actions you marked useful, so the app can suggest better ones next time.</p>
+</div>
+<div class="rounded-[20px] border border-accent-blue/18 bg-accent-blue/8 p-5 hover:bg-accent-blue/10 transition-colors">
+<h4 class="font-headline-md text-[18px] font-semibold text-on-surface mb-2">Mood stays separate</h4>
+<p class="font-body-md text-[14px] text-on-surface-variant leading-relaxed">Your check-ins are shown honestly, without pretending they explain every routine change.</p>
+</div>
+<div class="rounded-[20px] border border-amber-warm/18 bg-amber-warm/8 p-5 hover:bg-amber-warm/10 transition-colors">
+<h4 class="font-headline-md text-[18px] font-semibold text-on-surface mb-2">Progress without pressure</h4>
+<p class="font-body-md text-[14px] text-on-surface-variant leading-relaxed">Simple streaks and stable days are visible, with no shaming copy or nagging notifications.</p>
+</div>
+</div>
+</div>
+<div class="w-full md:w-1/2 rounded-[32px] border border-outline-variant/12 bg-surface-container-lowest/55 p-8 md:p-9 shadow-[0_18px_60px_-42px_rgba(28,28,23,0.55)] relative">
+<span class="font-label-mono text-xs text-accent-blue uppercase tracking-[0.15em] font-bold mb-4 block">CHOSEN AT SETUP, NOT GUESSED</span>
+<h3 class="font-headline-md text-3xl text-on-surface mb-8 leading-tight">Your goal decides what appears first.</h3>
+<div class="space-y-3">
+<div class="bg-background-light/75 p-4 rounded-[18px] border border-outline-variant/10 shadow-sm flex items-start gap-4 hover:bg-background-light transition-colors">
+<span class="material-symbols-outlined text-primary bg-primary/6 p-2 rounded-lg mt-0.5">bedtime</span>
+<div>
+<div class="font-headline-md text-[17px] font-semibold text-on-surface mb-1">Consistent sleep</div>
+<div class="font-body-md text-[13px] text-on-surface-variant leading-relaxed">Highlights overnight charging and evening phone rhythm.</div>
+</div>
+</div>
+<div class="bg-background-light/75 p-4 rounded-[18px] border border-outline-variant/10 shadow-sm flex items-start gap-4 hover:bg-background-light transition-colors">
+<span class="material-symbols-outlined text-primary bg-primary/6 p-2 rounded-lg mt-0.5">smartphone</span>
+<div>
+<div class="font-headline-md text-[17px] font-semibold text-on-surface mb-1">Balanced phone use</div>
+<div class="font-body-md text-[13px] text-on-surface-variant leading-relaxed">Brings screen timing and long inactive periods forward.</div>
+</div>
+</div>
+<div class="bg-background-light/75 p-4 rounded-[18px] border border-outline-variant/10 shadow-sm flex items-start gap-4 hover:bg-background-light transition-colors">
+<span class="material-symbols-outlined text-primary bg-primary/6 p-2 rounded-lg mt-0.5">directions_run</span>
+<div>
+<div class="font-headline-md text-[17px] font-semibold text-on-surface mb-1">Daily activity</div>
+<div class="font-body-md text-[13px] text-on-surface-variant leading-relaxed">Leads with movement patterns like still time, walking, and running.</div>
+</div>
+</div>
+<div class="bg-background-light/75 p-4 rounded-[18px] border border-outline-variant/10 shadow-sm flex items-start gap-4 hover:bg-background-light transition-colors">
+<span class="material-symbols-outlined text-primary bg-primary/6 p-2 rounded-lg mt-0.5">self_improvement</span>
+<div>
+<div class="font-headline-md text-[17px] font-semibold text-on-surface mb-1">Stress-management habits</div>
+<div class="font-body-md text-[13px] text-on-surface-variant leading-relaxed">Surfaces mood check-ins and the actions that have helped.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 8. WHAT IT WON'T DO & 9. PRIVACY -->
+<section class="py-24 md:py-28 relative">
+<div class="absolute inset-0 bg-surface-container-lowest/30 backdrop-blur-3xl -z-10 border-y border-outline-variant/5"></div>
+<div class="max-w-[1200px] mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-2 gap-8 animate-fade-in delay-200">
+<div class="rounded-[28px] border border-secondary/16 bg-secondary/6 p-7 md:p-8">
+<span class="font-label-mono text-xs text-secondary uppercase tracking-[0.15em] font-bold mb-4 block">CLEAR BOUNDARIES</span>
+<h2 class="font-headline-md text-headline-md text-primary mb-6">What it will never claim.</h2>
+<ul class="space-y-4">
+<li class="flex items-start gap-4 rounded-2xl bg-background-light/75 border border-outline-variant/12 p-4">
+<span class="material-symbols-outlined text-secondary bg-secondary/7 p-1.5 rounded-lg mt-0.5" style="font-size:20px;">close</span>
+<p class="font-body-md text-[15px] text-on-surface-variant leading-relaxed">No diagnosis, condition label, or mental-health probability.</p>
+</li>
+<li class="flex items-start gap-4 rounded-2xl bg-background-light/75 border border-outline-variant/12 p-4">
+<span class="material-symbols-outlined text-secondary bg-secondary/7 p-1.5 rounded-lg mt-0.5" style="font-size:20px;">close</span>
+<p class="font-body-md text-[15px] text-on-surface-variant leading-relaxed">No claim that a routine score explains how you feel.</p>
+</li>
+<li class="flex items-start gap-4 rounded-2xl bg-background-light/75 border border-outline-variant/12 p-4">
+<span class="material-symbols-outlined text-secondary bg-secondary/7 p-1.5 rounded-lg mt-0.5" style="font-size:20px;">close</span>
+<p class="font-body-md text-[15px] text-on-surface-variant leading-relaxed">No guessed emergency help or location-based advice.</p>
+</li>
+<li class="flex items-start gap-4 rounded-2xl bg-background-light/75 border border-outline-variant/12 p-4">
+<span class="material-symbols-outlined text-secondary bg-secondary/7 p-1.5 rounded-lg mt-0.5" style="font-size:20px;">close</span>
+<p class="font-body-md text-[15px] text-on-surface-variant leading-relaxed">No analytics, ads, or cloud learning from your personal routine.</p>
+</li>
+</ul>
+</div>
+<div class="rounded-[28px] border border-primary/16 bg-primary/6 p-7 md:p-8">
+<span class="font-label-mono text-xs text-primary uppercase tracking-[0.15em] font-bold mb-4 block">PRIVACY CONTROLS</span>
+<h2 class="font-headline-md text-headline-md text-primary mb-6">What stays under your control.</h2>
+<ul class="space-y-4">
+<li class="flex items-start gap-4 rounded-2xl bg-background-light/75 border border-outline-variant/12 p-4">
+<span class="material-symbols-outlined text-primary bg-primary/7 p-1.5 rounded-lg mt-0.5" style="font-size:20px;">key</span>
+<p class="font-body-md text-[15px] text-on-surface-variant leading-relaxed">Only four permissions: activity, usage access, notifications, and boot restart.</p>
+</li>
+<li class="flex items-start gap-4 rounded-2xl bg-background-light/75 border border-outline-variant/12 p-4">
+<span class="material-symbols-outlined text-primary bg-primary/7 p-1.5 rounded-lg mt-0.5" style="font-size:20px;">wifi_off</span>
+<p class="font-body-md text-[15px] text-on-surface-variant leading-relaxed">Offline after setup: the model downloads once, then runs locally.</p>
+</li>
+<li class="flex items-start gap-4 rounded-2xl bg-background-light/75 border border-outline-variant/12 p-4">
+<span class="material-symbols-outlined text-primary bg-primary/7 p-1.5 rounded-lg mt-0.5" style="font-size:20px;">toggle_off</span>
+<p class="font-body-md text-[15px] text-on-surface-variant leading-relaxed">Disable any signal source; missing data is marked honestly, never faked.</p>
+</li>
+<li class="flex items-start gap-4 rounded-2xl bg-background-light/75 border border-outline-variant/12 p-4">
+<span class="material-symbols-outlined text-secondary bg-secondary/7 p-1.5 rounded-lg mt-0.5" style="font-size:20px;">delete</span>
+<p class="font-body-md text-[15px] text-on-surface-variant leading-relaxed">Delete all stored data whenever you want.</p>
+</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- 10. BUILT, NOT DRAFTED -->
+<section class="py-24 md:py-28 relative">
+<div class="max-w-[1200px] mx-auto px-margin-mobile md:px-margin-desktop relative z-10 animate-fade-in delay-100">
+<div class="mb-14 text-center max-w-3xl mx-auto">
+<span class="font-label-mono text-xs text-primary uppercase tracking-[0.15em] font-bold mb-4 block">BUILT AND VERIFIED</span>
+<h2 class="font-headline-md text-headline-md text-primary leading-tight mb-4">Real models, real data, real device tests.</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">This is more than a static app concept. The sensing pipeline, behavior model, language model, and on-device runtime were built and tested end to end.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+<div class="rounded-[23px] p-7 border border-primary/16 bg-primary/6 shadow-[0_16px_48px_-38px_rgba(28,28,23,0.45)]">
+<div class="font-label-mono text-[11px] font-bold text-primary mb-5 tracking-widest uppercase">Behavior model</div>
+<h3 class="font-headline-md text-[20px] font-semibold text-on-surface mb-3">Trained on phone-sensing data</h3>
+<p class="font-body-md text-[14px] text-on-surface-variant leading-relaxed">A temporal encoder learns routine patterns from movement, lock, and charging signals.</p>
+</div>
+<div class="rounded-[23px] p-7 border border-accent-blue/18 bg-accent-blue/8 shadow-[0_16px_48px_-38px_rgba(28,28,23,0.45)]">
+<div class="font-label-mono text-[11px] font-bold text-accent-blue mb-5 tracking-widest uppercase">Language model</div>
+<h3 class="font-headline-md text-[20px] font-semibold text-on-surface mb-3">Runs locally on device</h3>
+<p class="font-body-md text-[14px] text-on-surface-variant leading-relaxed">A fine-tuned Gemma 3 270M model creates structured, safety-checked responses.</p>
+</div>
+<div class="rounded-[23px] p-7 border border-amber-warm/18 bg-amber-warm/8 shadow-[0_16px_48px_-38px_rgba(28,28,23,0.45)]">
+<div class="font-label-mono text-[11px] font-bold text-amber-warm mb-5 tracking-widest uppercase">Parity checked</div>
+<h3 class="font-headline-md text-[20px] font-semibold text-on-surface mb-3">Conversion was verified</h3>
+<p class="font-body-md text-[14px] text-on-surface-variant leading-relaxed">The on-device behavior model matched the Python reference within floating-point noise.</p>
+</div>
+<div class="rounded-[23px] p-7 border border-secondary/18 bg-secondary/8 shadow-[0_16px_48px_-38px_rgba(28,28,23,0.45)]">
+<div class="font-label-mono text-[11px] font-bold text-secondary mb-5 tracking-widest uppercase">Hardware tested</div>
+<h3 class="font-headline-md text-[20px] font-semibold text-on-surface mb-3">Measured on a real phone</h3>
+<p class="font-body-md text-[14px] text-on-surface-variant leading-relaxed">Download, model load, inference, and safety fallback were tested beyond the emulator.</p>
+</div>
+</div>
+<div class="mt-8 rounded-[22px] border border-outline-variant/12 bg-surface-container-lowest/55 px-5 py-4 text-center">
+<p class="font-body-md text-[14px] text-on-surface-variant leading-relaxed">The behavior score is reported honestly: useful for routine awareness, not validated as a diagnosis or stress predictor.</p>
+</div>
+</div>
+</section>
+<!-- 11. COMMON QUESTIONS -->
+<section class="py-24 md:py-28 relative" id="faq">
+<div class="absolute inset-0 bg-surface-container-lowest/30 backdrop-blur-3xl -z-10 border-t border-outline-variant/5"></div>
+<div class="max-w-[900px] mx-auto px-margin-mobile md:px-margin-desktop animate-fade-in delay-200">
+<div class="mb-12 text-center">
+<span class="font-label-mono text-xs text-secondary uppercase tracking-[0.15em] font-bold mb-4 block">COMMON QUESTIONS</span>
+<h2 class="font-headline-md text-headline-md text-primary mb-4">Quick answers before you try it.</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed">The important details: what runs offline, what data is used, and what the app will not claim.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="rounded-[22px] border border-primary/14 bg-primary/6 p-6">
+<h3 class="font-headline-md text-[19px] font-semibold text-on-surface mb-2">Does it need internet?</h3>
+<p class="font-body-md text-[15px] text-on-surface-variant leading-relaxed">Only during setup to download the local language model. After that, the app runs on-device.</p>
+</div>
+<div class="rounded-[22px] border border-secondary/14 bg-secondary/6 p-6">
+<h3 class="font-headline-md text-[19px] font-semibold text-on-surface mb-2">Does it diagnose anything?</h3>
+<p class="font-body-md text-[15px] text-on-surface-variant leading-relaxed">No. It describes routine changes and suggests small actions; it never names a condition.</p>
+</div>
+<div class="rounded-[22px] border border-accent-blue/18 bg-accent-blue/8 p-6">
+<h3 class="font-headline-md text-[19px] font-semibold text-on-surface mb-2">What data does it use?</h3>
+<p class="font-body-md text-[15px] text-on-surface-variant leading-relaxed">Movement state, screen/lock timing, and charging timing. No location, microphone, camera, contacts, or messages.</p>
+</div>
+<div class="rounded-[22px] border border-amber-warm/18 bg-amber-warm/8 p-6">
+<h3 class="font-headline-md text-[19px] font-semibold text-on-surface mb-2">What can I download?</h3>
+<p class="font-body-md text-[15px] text-on-surface-variant leading-relaxed">A portfolio build that demonstrates the product flow, models, safety layer, and device testing.</p>
+</div>
+<div class="rounded-[22px] border border-outline-variant/16 bg-background-light/70 p-6 md:col-span-2">
+<h3 class="font-headline-md text-[19px] font-semibold text-on-surface mb-2">What happens if I delete it?</h3>
+<p class="font-body-md text-[15px] text-on-surface-variant leading-relaxed">All personal data lives on the device. Uninstalling removes it, and the app also includes a delete-all-data control.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 12. CLOSING CTA -->
+<section class="py-20 md:py-24 bg-primary text-on-primary relative overflow-hidden" id="download">
+<div class="absolute inset-0 bg-gradient-to-t from-black/16 to-transparent"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[520px] bg-primary-fixed-dim/10 rounded-full blur-3xl -z-0"></div>
+<div class="max-w-[760px] mx-auto px-margin-mobile md:px-margin-desktop text-center flex flex-col items-center animate-fade-in delay-100 relative z-10">
+<div class="bg-on-primary/10 px-4 py-2 rounded-full font-label-mono text-[11px] mb-7 border border-on-primary/20 backdrop-blur-md tracking-widest uppercase">Portfolio build | verified end to end</div>
+<h2 class="font-headline-lg-mobile md:text-5xl mb-6 leading-tight max-w-2xl">Built from dataset to on-device AI.</h2>
+<p class="font-body-lg text-[17px] leading-relaxed text-on-primary/80 max-w-2xl mb-9">A privacy-first Android wellbeing system with behavior sensing, local models, safety validation, and real device testing.</p>
+<a class="inline-flex items-center gap-2 bg-accent-gold text-on-surface px-6 py-3 rounded-full font-body-md text-[15px] hover:bg-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_40px_-10px_rgba(242,201,76,0.6)] font-semibold animate-subtle-pulse" href="#download">
+Download
+<span class="material-symbols-outlined" style="font-size:17px;">download</span>
+</a>
+</div>
+</section>
+</main>
+<!-- Footer Component -->
+<footer class="bg-surface-container-lowest/90 backdrop-blur-xl border-t border-outline-variant/10 w-full py-8 px-margin-mobile md:px-margin-desktop relative z-20 mb-0">
+<div class="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="text-center md:text-left">
+<div class="font-headline-md text-[20px] font-bold text-primary dark:text-primary-fixed mb-1">MindPulse</div>
+<div class="font-body-md text-[13px] text-on-surface-variant dark:text-on-surface-variant">&copy; 2026 MindPulse. Privacy-first behavioral insights.</div>
+</div>
+<div class="flex flex-wrap justify-center md:flex-nowrap gap-5 font-body-md text-[13px]">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-medium" href="#product-flow">Flow</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-medium" href="#why">Why</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-medium" href="#what-it-senses">Signals</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-medium" href="#how-it-decides">Decision gates</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-medium" href="#dashboard">Dashboard</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-medium" href="#faq">FAQ</a>
+</div>
+</div>
+</footer>
+<script>
+(function () {
+  const numbers = document.querySelectorAll('.metric-number');
+  if (!numbers.length) return;
+
+  const animateNumber = (el) => {
+    if (el.dataset.done === 'true') return;
+    el.dataset.done = 'true';
+    const target = Number(el.dataset.target || 0);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1100;
+    const startTime = performance.now();
+
+    const tick = (now) => {
+      const progress = Math.min((now - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const value = Math.round(target * eased);
+      el.textContent = `${value}${suffix}`;
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+
+    requestAnimationFrame(tick);
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) animateNumber(entry.target);
+    });
+  }, { threshold: 0.45 });
+
+  numbers.forEach((number) => observer.observe(number));
+}());
+</script>
+</body></html>
+
